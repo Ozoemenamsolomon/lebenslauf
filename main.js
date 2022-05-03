@@ -4,97 +4,146 @@ fetch('lebenslauf.json')
 	.then((response) => response.json())
 	.then((data) => {
 		data.sections.forEach((section, sectionIndex) => {
-			const sectionElement = document.createElement('section');
-			sectionElement.classList.add('section', 'mb-5');
-			sectionElement.setAttribute('aria-label', section.title.toLowerCase());
-
-			const sectionTitle = document.createElement('h2');
-			sectionTitle.classList.add('font-bold', 'text-lg');
-			sectionIndex > 0 && sectionTitle.classList.add('border-b-2');
-			sectionTitle.innerText = section.title.toUpperCase();
-			sectionElement.appendChild(sectionTitle);
-
-			const sectionContentContainer = document.createElement('div');
-			sectionContentContainer.classList.add(
-				'section-content',
-				'flex',
-				'justify-between'
+			const sectionElement = myCreateElement(
+				'section',
+				['section', 'mb-5'],
+				undefined,
+				sectionsContainer,
+				{ 'aria-label': section.title.toLowerCase() }
 			);
-			sectionElement.appendChild(sectionContentContainer);
 
-			const sectionContentTable = document.createElement('table');
-			sectionContentContainer.appendChild(sectionContentTable);
+			const sectionTitle = myCreateElement(
+				'h2',
+				['section-title', 'font-bold', 'text-base', 'capitalize'],
+				section.title.toLowerCase(),
+				sectionElement,
+				undefined
+			);
+			sectionIndex > 0 && sectionTitle.classList.add('border-b-2');
+
+			const sectionContentContainer = myCreateElement(
+				'div',
+				['section-content', 'flex', 'justify-between'],
+				undefined,
+				sectionElement,
+				undefined
+			);
+
+			const sectionContentTable = myCreateElement(
+				'table',
+				[],
+				undefined,
+				sectionContentContainer,
+				undefined
+			);
 
 			for (const key in section.content) {
-				const sectionContentRow = document.createElement('tr');
-				sectionContentTable.appendChild(sectionContentRow);
+				const sectionContentRow = myCreateElement(
+					'tr',
+					[],
+					undefined,
+					sectionContentTable,
+					undefined
+				);
 
-				if (key !== ' ') {
-					const sectionContentKey = document.createElement('td');
-					sectionContentKey.classList.add('align-top', 'pr-8');
-					sectionContentKey.innerText = key + ':';
-					sectionContentRow.appendChild(sectionContentKey);
-				}
+				const sectionContentKey = myCreateElement(
+					'td',
+					['align-top', 'pr-8'],
+					key + ':',
+					sectionContentRow,
+					undefined
+				);
 
-				const sectionContentValue = document.createElement('td');
-				sectionContentValue.classList.add('align-top');
+				const sectionContentValue = myCreateElement(
+					'td',
+					['align-top'],
+					undefined,
+					sectionContentRow,
+					undefined
+				);
 
 				if (Array.isArray(section.content[key])) {
-					sectionContentValue.innerHTML = section.content[key].join('<br>');
+					section.content[key].forEach((item, sectionContentValueIndex) => {
+						const sectionContentItem = myCreateElement(
+							'p',
+							[],
+							item,
+							sectionContentValue,
+							undefined
+						);
+						sectionContentValueIndex == 0 &&
+							(sectionIndex == 1 || sectionIndex == 2) &&
+							sectionContentItem.classList.add('font-bold');
+					});
 				} else {
-					sectionContentValue.innerText = section.content[key];
-				}
-				const linkTag = document.createElement('a');
-				linkTag.setAttribute('href', section.content[key]);
+					const linkTag = myCreateElement(
+						'a',
+						['text-blue-500'],
+						section.content[key],
+						sectionContentValue,
+						{ rel: 'noopener noreferrer', target: '_blank' }
+					);
 
-				if (key.toLowerCase() === 'telefon') {
-					sectionContentValue.innerText = '';
-					linkTag.setAttribute('target', '_blank');
-					linkTag.setAttribute('rel', 'noopener noreferrer');
-					linkTag.classList.add('text-blue-500');
-					linkTag.setAttribute('href', 'tel:' + section.content[key]);
-					linkTag.innerText = section.content[key];
-					sectionContentValue.appendChild(linkTag);
+					if (key.toLowerCase() === 'telefon') {
+						linkTag.setAttribute('href', 'tel:' + section.content[key]);
+					} else if (key.toLowerCase() === 'webseite') {
+						linkTag.setAttribute('href', 'https://' + section.content[key]);
+					} else if (key.toLowerCase() === 'email') {
+						linkTag.setAttribute('href', 'mailto:' + section.content[key]);
+					} else {
+						sectionContentValue.innerText = section.content[key];
+					}
 				}
-				if (key.toLowerCase() === 'webseite') {
-					sectionContentValue.innerText = '';
-					linkTag.setAttribute('target', '_blank');
-					linkTag.setAttribute('rel', 'noopener noreferrer');
-					linkTag.classList.add('text-blue-500');
-					linkTag.setAttribute('href', 'https://' + section.content[key]);
-					linkTag.innerText = section.content[key];
-					sectionContentValue.appendChild(linkTag);
-				}
-				if (key.toLowerCase() === 'email') {
-					sectionContentValue.innerText = '';
-					linkTag.setAttribute('target', '_blank');
-					linkTag.setAttribute('rel', 'noopener noreferrer');
-					linkTag.classList.add('text-blue-500');
-					linkTag.setAttribute('href', 'mailto:' + section.content[key]);
-					linkTag.innerText = section.content[key];
-					sectionContentValue.appendChild(linkTag);
-				}
-				sectionContentRow.appendChild(sectionContentValue);
 			}
 			if (sectionIndex === 0) {
-				const sectionImage = document.createElement('img');
-				sectionImage.classList.add(
-					'section-image',
-					// 'absolute',
-					// 'right-0',
-					// 'top-0',
-					'object-cover'
+				const sectionImage = myCreateElement(
+					'img',
+					['section-image', 'object-cover'],
+					undefined,
+					sectionContentContainer,
+					{ src: './profile-picture.jpg', alt: section.title }
 				);
-				sectionImage.setAttribute('src', './profile-picture.jpg');
-				sectionImage.setAttribute('alt', section.title);
-				sectionContentContainer.appendChild(sectionImage);
 			}
-
-			sectionsContainer.appendChild(sectionElement);
 		});
 
-		// create p tag
-		const pTag = document.createElement('p');
-		pTag.innerText = data.location + ', den ' + data.date;
-		sectionsContainer.appendChild(pTag);
+		myCreateElement(
+			'p',
+			[],
+			`${data.location}, ${new Date().toLocaleDateString('de-DE', {
+				dateStyle: 'short',
+			})}.`,
+			sectionsContainer,
+			undefined
+		);
 	});
+
+/**
+ *
+ * @param {string} tagName
+ * @param {string[]} classNames
+ * @param {string|undefined} text
+ * @param {Element | null|undefined} parentNode
+ * @param {object | undefined} attributes
+ * @returns {HTMLElement}
+ */
+
+const myCreateElement = (
+	tagName,
+	classNames,
+	text = '',
+	parentNode,
+	attributes
+) => {
+	let element = document.createElement(tagName);
+	element.innerText = text;
+	classNames && element.classList.add(...classNames);
+	attributes &&
+		Object.keys(attributes).forEach((key) => {
+			element.setAttribute(key, attributes[key]);
+		});
+	if (parentNode) {
+		element = parentNode.appendChild(element);
+		return element;
+	}
+	return element;
+};
