@@ -6,7 +6,7 @@ fetch('lebenslauf.json')
 		data.sections.forEach((section, sectionIndex) => {
 			const sectionElement = myCreateElement(
 				'section',
-				['section', 'mb-5'],
+				['section', 'mb-4'],
 				undefined,
 				sectionsContainer,
 				{ 'aria-label': section.title.toLowerCase() }
@@ -14,12 +14,11 @@ fetch('lebenslauf.json')
 
 			const sectionTitle = myCreateElement(
 				'h2',
-				['section-title', 'font-bold', 'text-base', 'capitalize'],
+				['section-title', 'font-bold', 'text-base', 'capitalize', 'border-b-2'],
 				section.title.toLowerCase(),
 				sectionElement,
 				undefined
 			);
-			sectionIndex > 0 && sectionTitle.classList.add('border-b-2');
 
 			const sectionContentContainer = myCreateElement(
 				'div',
@@ -46,9 +45,9 @@ fetch('lebenslauf.json')
 					undefined
 				);
 
-				const sectionContentKey = myCreateElement(
+				myCreateElement(
 					'td',
-					['align-top', 'pr-8'],
+					['align-top', 'pr-4'],
 					key + ':',
 					sectionContentRow,
 					undefined
@@ -71,9 +70,12 @@ fetch('lebenslauf.json')
 							sectionContentValue,
 							undefined
 						);
-						sectionContentValueIndex == 0 &&
-							(sectionIndex == 1 || sectionIndex == 2) &&
-							sectionContentItem.classList.add('font-bold');
+
+						if (sectionIndex == 1 || sectionIndex == 2) {
+							sectionContentItem.classList.add(
+								sectionContentValueIndex == 0 ? 'font-bold' : 'pl-2'
+							);
+						}
 					});
 				} else {
 					const linkTag = myCreateElement(
@@ -96,9 +98,9 @@ fetch('lebenslauf.json')
 				}
 			}
 			if (sectionIndex === 0) {
-				const sectionImage = myCreateElement(
+				myCreateElement(
 					'img',
-					['section-image', 'object-cover'],
+					['section-image', 'object-cover', '-mt-1', 'bg-white'],
 					undefined,
 					sectionContentContainer,
 					{ src: './profile-picture.jpg', alt: section.title }
@@ -114,6 +116,13 @@ fetch('lebenslauf.json')
 			})}.`,
 			sectionsContainer,
 			undefined
+		);
+		myCreateElement(
+			'img',
+			['h-12', 'object-cover'],
+			undefined,
+			sectionsContainer,
+			{ src: './signature.svg', alt: 'Signature' }
 		);
 	});
 
@@ -143,7 +152,6 @@ const myCreateElement = (
 		});
 	if (parentNode) {
 		element = parentNode.appendChild(element);
-		return element;
 	}
 	return element;
 };

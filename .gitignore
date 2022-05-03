@@ -2,3 +2,5 @@ venv/
 *.docx
 lebenslauf.json
 signature.svg
+*.json
+*.pdf
