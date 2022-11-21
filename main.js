@@ -1,5 +1,8 @@
 import myCreateElement from './myCreateElement.js';
+
 const sectionsContainer = document.querySelector('#sections');
+const profilePicturePath = './profile-picture.jpg';
+const signaturePath = './signature.svg';
 
 fetch('lebenslauf.json')
 	.then((response) => response.json())
@@ -104,7 +107,7 @@ fetch('lebenslauf.json')
 					['section-image', 'object-cover', '-mt-1', 'bg-white'],
 					undefined,
 					sectionContentContainer,
-					{ src: './profile-picture.jpg', alt: section.title }
+					{ src: profilePicturePath, alt: 'Profile picture' }
 				);
 			}
 		});
@@ -123,6 +126,6 @@ fetch('lebenslauf.json')
 			['h-12', 'object-cover'],
 			undefined,
 			sectionsContainer,
-			{ src: './signature.svg', alt: 'Signature' }
+			{ src: signaturePath, alt: 'Signature' }
 		);
 	});
