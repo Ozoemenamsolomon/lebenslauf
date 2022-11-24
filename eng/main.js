@@ -173,5 +173,4 @@ fetch('lebenslauf.json')
 				}
 			}
 		});
-		console.log({ data });
 	});

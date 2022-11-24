@@ -4,14 +4,12 @@ const sectionsContainer = document.querySelector('#sections');
 fetch('anschreiben.json')
 	.then((response) => response.json())
 	.then((data) => {
-		console.log({ data });
-
 		const address = myCreateElement(
 			'div',
 			['section', 'mb-12', 'flex', 'space-between'],
 			undefined,
 			sectionsContainer,
-			{ 'aria-label': 'address' }
+			{ 'aria-label': 'address', style: 'margin-bottom: 2rem' }
 		);
 
 		const recipient = myCreateElement(
@@ -60,20 +58,10 @@ fetch('anschreiben.json')
 
 		const sender = myCreateElement(
 			'div',
-			[
-				'flex',
-				'flex-col',
-				'justify-center',
-				'border-l-4',
-				'border-sky-700',
-				'gap-8',
-				'pt-4',
-				'pl-4',
-				'w-64',
-			],
+			['flex', 'flex-col', 'justify-center', 'gap-8', 'pt-4', 'pl-4', 'w-64'],
 			undefined,
 			address,
-			undefined
+			{ style: 'box-shadow: -6px 0px 0px -2px rgb(3 105 161)' }
 		);
 		const senderName = myCreateElement(
 			'h1',
@@ -168,7 +156,7 @@ fetch('anschreiben.json')
 
 		const date = myCreateElement(
 			'p',
-			['text-right'],
+			['text-right', 'mb-4'],
 			`${data.sender.address.city}, den ${data.date || dateString}`,
 			sectionsContainer,
 			undefined
@@ -194,10 +182,12 @@ fetch('anschreiben.json')
 
 		const signature = myCreateElement(
 			'img',
-			['w-48', 'object-contain'],
+			['w-16', 'object-contain'],
 			undefined,
 			sectionsContainer,
-			{ src: '../signature.png' }
+			{
+				src: data.signatureSrc,
+			}
 		);
 
 		const name = myCreateElement(
