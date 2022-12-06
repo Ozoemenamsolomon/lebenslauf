@@ -27,7 +27,7 @@ create a json file with your CV data called `lebenslauf.json`
 				"Geburtsdatum": "01.01.2022",
 				"Adresse": ["Musterstr. 01", "12345 Musterstadt"],
 				"Telefon": "0123-4567890",
-				"Webseite": "solozo.page",
+				"Portfolio": "solozo.page",
 				"Email": "sample@test.de"
 			}
 		},

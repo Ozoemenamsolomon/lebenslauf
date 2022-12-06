@@ -91,8 +91,14 @@ fetch('lebenslauf.json')
 					);
 
 					if (key.toLowerCase() === 'telefon') {
-						linkTag.setAttribute('href', 'tel:' + section.content[key]);
-					} else if (key.toLowerCase() === 'webseite') {
+						linkTag.setAttribute(
+							'href',
+							'tel:' + section.content[key].replace(/-/g, '')
+						);
+					} else if (
+						key.toLowerCase() === 'portfolio' ||
+						key.toLowerCase() === 'linkedin'
+					) {
 						linkTag.setAttribute('href', 'https://' + section.content[key]);
 					} else if (key.toLowerCase() === 'email') {
 						linkTag.setAttribute('href', 'mailto:' + section.content[key]);
