@@ -110,7 +110,14 @@ fetch('lebenslauf.json')
 			if (sectionIndex === 0) {
 				myCreateElement(
 					'img',
-					['section-image', 'object-cover', '-mt-1', 'bg-white'],
+					[
+						'section-image',
+						'object-cover',
+						'-mt-1',
+						'bg-white',
+						'w-32',
+						'h-48',
+					],
 					undefined,
 					sectionContentContainer,
 					{ src: profilePicturePath, alt: 'Profile picture' }
