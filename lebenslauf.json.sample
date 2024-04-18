@@ -11,11 +11,13 @@
 				"Adresse": ["Musterstr. 01", "12345 Musterstadt"],
 				"Telefon": "0123-4567890",
 				"Portfolio": "solozo.page",
+				"LinkedIn": "linkedin.com/in/sample",
 				"Email": "sample@test.de"
 			}
 		},
 		{
 			"title": "Section 2",
+			"readmore": "https://www.google.com",
 			"content": {
 				"01/2020 - 01/2022": "studies at university",
 				"01/2020 - 01/2022": ["Musterstr. 01", "12345 Musterstadt"],

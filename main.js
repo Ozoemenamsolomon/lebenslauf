@@ -1,3 +1,4 @@
+// @ts-check
 import myCreateElement from './myCreateElement.js';
 
 const sectionsContainer = document.querySelector('#sections');
@@ -10,7 +11,7 @@ fetch('lebenslauf.json')
 		data.sections.forEach((section, sectionIndex) => {
 			const sectionElement = myCreateElement(
 				'section',
-				['section', 'mb-4'],
+				['section', 'mb-4', 'relative'],
 				undefined,
 				sectionsContainer,
 				{ 'aria-label': section.title.toLowerCase() }
@@ -34,7 +35,7 @@ fetch('lebenslauf.json')
 
 			const sectionContentTable = myCreateElement(
 				'table',
-				[],
+				[`section-${section.title.toLowerCase().replace(/\s/g, '-')}`],
 				undefined,
 				sectionContentContainer,
 				undefined
@@ -107,6 +108,20 @@ fetch('lebenslauf.json')
 					}
 				}
 			}
+			if (section.readmore) {
+				const readmoreButton = myCreateElement(
+					'a',
+					['readmore', 'absolute', 'top-0', 'right-0', 'text-blue-500'],
+					'mehr erfahren →',
+					sectionContentContainer,
+					{
+						href: section.readmore,
+						rel: 'noopener noreferrer',
+						target: '_blank',
+					}
+				);
+			}
+
 			if (sectionIndex === 0) {
 				myCreateElement(
 					'img',
