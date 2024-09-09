@@ -10,3 +10,6 @@ eng/profile-pics.jpg
 node_modules/
 .env
 repos.txt
+past.json
+lebenslauf-shay.json
+fsc/*

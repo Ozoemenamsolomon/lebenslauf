@@ -2,10 +2,10 @@
 import myCreateElement from './myCreateElement.js';
 
 const sectionsContainer = document.querySelector('#sections');
-const profilePicturePath = './profile-picture.jpg';
+const profilePicturePath = './profile-picture-shay-2.jpg';
 const signaturePath = './signature.svg';
 
-fetch('lebenslauf.json')
+fetch('lebenslauf-shay.json')
 	.then((response) => response.json())
 	.then((data) => {
 		data.sections.forEach((section, sectionIndex) => {
@@ -76,7 +76,7 @@ fetch('lebenslauf.json')
 							undefined
 						);
 
-						if (sectionIndex == 1 || sectionIndex == 2) {
+						if ([1, 2, 3].includes(sectionIndex)) {
 							sectionContentItem.classList.add(
 								sectionContentValueIndex == 0 ? 'font-bold' : 'pl-2'
 							);
