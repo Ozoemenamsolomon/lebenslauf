@@ -2,10 +2,10 @@
 import myCreateElement from './myCreateElement.js';
 
 const sectionsContainer = document.querySelector('#sections');
-const profilePicturePath = './profile-picture-shay-2.jpg';
+const profilePicturePath = './profile-picture.jpg';
 const signaturePath = './signature.svg';
 
-fetch('lebenslauf-shay.json')
+fetch('lebenslauf.json')
 	.then((response) => response.json())
 	.then((data) => {
 		data.sections.forEach((section, sectionIndex) => {
