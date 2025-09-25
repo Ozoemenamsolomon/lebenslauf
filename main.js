@@ -140,15 +140,15 @@ fetch('lebenslauf.json')
 			}
 		});
 
-		myCreateElement(
+		/* myCreateElement(
 			'p',
 			[],
-			`${data.location}, ${new Date().toLocaleDateString('de-DE', {
+			`${data.location || ''}, ${new Date().toLocaleDateString('de-DE', {
 				dateStyle: 'short',
 			})}.`,
 			sectionsContainer,
 			undefined
-		);
+		); */
 		myCreateElement(
 			'img',
 			['h-12', 'object-cover'],
