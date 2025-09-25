@@ -3,7 +3,7 @@ import myCreateElement from './myCreateElement.js';
 
 const sectionsContainer = document.querySelector('#sections');
 const profilePicturePath = './profile-picture.jpg';
-const signaturePath = './signature.svg';
+const signaturePath = './signature.png';
 
 fetch('lebenslauf.json')
 	.then((response) => response.json())
@@ -11,7 +11,7 @@ fetch('lebenslauf.json')
 		data.sections.forEach((section, sectionIndex) => {
 			const sectionElement = myCreateElement(
 				'section',
-				['section', 'mb-4', 'relative'],
+				['section', 'mb-2', 'relative'],
 				undefined,
 				sectionsContainer,
 				{ 'aria-label': section.title.toLowerCase() }
