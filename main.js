@@ -6,18 +6,23 @@ const profilePicturePath = './profile-picture.jpg';
 const signaturePath = './signature.png';
 
 const controls = {
-	/** @type {HTMLButtonElement | null} */ langDeBtn:
-		document.querySelector('#lang-de'),
-	/** @type {HTMLButtonElement | null} */ langEnBtn:
-		document.querySelector('#lang-en'),
+	/** @type {HTMLButtonElement | null} */
+	langDeBtn: document.querySelector('#lang-de'),
+	/** @type {HTMLButtonElement | null} */
+	langEnBtn: document.querySelector('#lang-en'),
 };
 
 /** @type {'de'|'en'} */
 let currentLang = 'de'; // default to German
 
+const langPathDict = {
+	en: 'eng/lebenslauf.json',
+	de: 'lebenslauf.json',
+};
+
 /** @param {'de'|'en'} lang */
 function jsonPathForLang(lang) {
-	return lang === 'en' ? 'eng/lebenslauf.json' : 'lebenslauf.json';
+	return langPathDict[lang || currentLang];
 }
 
 function clearSections() {
@@ -65,11 +70,13 @@ function fetchAndRender(lang) {
 }
 
 controls.langDeBtn?.addEventListener('click', () => {
+	if (currentLang === 'de') return; // no change
 	currentLang = 'de';
 	fetchAndRender(currentLang);
 });
 
 controls.langEnBtn?.addEventListener('click', () => {
+	if (currentLang === 'en') return; // no change
 	currentLang = 'en';
 	fetchAndRender(currentLang);
 });
