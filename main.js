@@ -5,10 +5,27 @@ const sectionsContainer = document.querySelector('#sections');
 const profilePicturePath = './profile-picture.jpg';
 const signaturePath = './signature.png';
 
-fetch('lebenslauf.json')
+fetch('eng/lebenslauf.json')
 	.then((response) => response.json())
 	.then((data) => {
-		data.sections.forEach((section, sectionIndex) => {
+		/**
+		 * @typedef {Object} Section
+		 * @property {string} title
+		 * @property {Record<string, string | string[]>} content
+		 * @property {string} [readmore]
+		 */
+
+		/**
+		 * @typedef {Object} LebenslaufData
+		 * @property {string} [location]
+		 * @property {Section[]} sections
+		 */
+
+		/** @type {LebenslaufData} */
+		const typedData = data;
+
+		typedData.sections.forEach((section, sectionIndex) => {
+			/** @type {HTMLElement} */
 			const sectionElement = myCreateElement(
 				'section',
 				['section', 'mb-2', 'relative'],
