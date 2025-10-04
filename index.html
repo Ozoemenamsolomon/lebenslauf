@@ -17,12 +17,25 @@
 			}
 		</style>
 	</head>
-	<body class="font-serif text-sm">
+	<body class="font-serif text-xs">
 		<div class="container max-w-3xl mx-auto px-4 py-2">
-			<h1 class="text-center text-2xl mb-4 font-bold uppercase">Lebenslauf</h1>
-			<h1 class="text-center text-xl mb-4 font-bold eng hidden">
+			<h1 class="de text-center text-xl mb-4 font-bold uppercase">
+				Lebenslauf
+			</h1>
+			<h1 class="eng text-center text-xl mb-4 font-bold hidden">
 				Curriculum Vitae
 			</h1>
+
+			<!-- Control panel: hidden when printing -->
+			<div id="controls" class="no-print mb-4 flex justify-end items-center">
+				<span class="mr-2 text-sm">Language:</span>
+				<button id="lang-de" class="px-3 py-1 mr-2 border rounded bg-gray-200">
+					Deutsch
+				</button>
+				<button id="lang-en" class="px-3 py-1 border rounded bg-white">
+					English
+				</button>
+			</div>
 			<div id="sections"></div>
 			<!-- <button
 				class="no-print bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded-full ml-auto"
