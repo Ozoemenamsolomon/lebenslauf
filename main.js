@@ -70,13 +70,13 @@ function fetchAndRender(lang) {
 }
 
 controls.langDeBtn?.addEventListener('click', () => {
-	if (currentLang === 'de') return; // no change
+	if (currentLang === 'de') return console.log('Language is already German');
 	currentLang = 'de';
 	fetchAndRender(currentLang);
 });
 
 controls.langEnBtn?.addEventListener('click', () => {
-	if (currentLang === 'en') return; // no change
+	if (currentLang === 'en') return console.log('Language is already English');
 	currentLang = 'en';
 	fetchAndRender(currentLang);
 });
