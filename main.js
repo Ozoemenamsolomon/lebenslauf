@@ -120,7 +120,6 @@ function buildReorderList() {
 		);
 		li.dataset.sid = sec.dataset.sid;
 
-		// li.dataset.sid = sec.dataset.sid;
 		addDnD(li);
 	});
 }
