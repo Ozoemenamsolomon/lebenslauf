@@ -205,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const toggle = document.getElementById('reorder-toggle');
 	const panel = document.getElementById('reorder-panel');
 	const saveBtn = document.getElementById('save-order');
+	const clearBtn = document.getElementById('clear-order');
 	const cancelBtn = document.getElementById('cancel-order');
 	const list = document.getElementById('reorder-list');
 	if (!toggle || !panel || !list) return;
@@ -229,6 +230,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			JSON.stringify(order)
 		);
 		applyOrderToDOM(order);
+		panel.classList.add('hidden');
+	});
+
+	// Clear saved order for current language and rebuild to default
+	clearBtn?.addEventListener('click', () => {
+		localStorage.removeItem(getStorageKeyForLang(currentLang));
+		// Re-render the original order by re-fetching and applying no saved order.
+		// fetchAndRender will call applySavedOrder after render; since we've
+		// removed the stored key, it will keep the default order.
+		fetchAndRender(currentLang);
 		panel.classList.add('hidden');
 	});
 
