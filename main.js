@@ -116,8 +116,9 @@ function buildReorderList() {
 			['py-1', 'px-2', 'border-b', 'cursor-move'],
 			String(title).trim(),
 			list,
-			{ sid: sec.dataset.sid }
+			undefined
 		);
+		li.dataset.sid = sec.dataset.sid;
 
 		// li.dataset.sid = sec.dataset.sid;
 		addDnD(li);
