@@ -1,5 +1,5 @@
 // @ts-check
-import myCreateElement from '../myCreateElement.js';
+import myCreateElement from './myCreateElement.js';
 
 /**
  * Render the JSON data into the DOM.

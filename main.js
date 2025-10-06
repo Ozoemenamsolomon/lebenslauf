@@ -1,11 +1,11 @@
 // @ts-check
-import myCreateElement from './myCreateElement.js';
+import myCreateElement from './src/myCreateElement.js';
+import { renderData } from './src/render.js';
 import {
-	jsonPathForLang,
 	clearSections,
+	jsonPathForLang,
 	setActiveLangButton,
 } from './src/utils.js';
-import { renderData } from './src/render.js';
 
 const sectionsContainer = document.querySelector('#sections');
 const profilePicturePath = './profile-picture.jpg';
@@ -25,9 +25,6 @@ const controls = {
 	/** @type {HTMLButtonElement | null} */
 	langEnBtn: document.querySelector('#lang-en'),
 };
-
-/** @param {'de'|'en'} lang */
-// ...small helpers moved to ./src/utils.js
 
 /** @param {'de'|'en'} lang */
 function fetchAndRender(lang) {
@@ -77,5 +74,3 @@ controls.langEnBtn?.addEventListener('click', () => {
 
 // initial load
 fetchAndRender(currentLang);
-
-// Render logic extracted to `src/render.js`
