@@ -145,7 +145,7 @@ export function renderData(data, lang, opts) {
 					const toggleBtn = myCreateElement(
 						'button',
 						['entry-toggle', 'absolute', 'top-0', 'right-0', 'p-1', 'no-print'],
-						entryVisible ? '👁' : '👁‍🗨',
+						entryVisible ? '👁' : '🙈',
 						entryContainer,
 						undefined
 					);
@@ -157,12 +157,13 @@ export function renderData(data, lang, opts) {
 						ev.stopPropagation();
 						const hidden = sectionContentRow.classList.toggle('opacity-25');
 						sectionContentRow.classList.toggle('no-print', hidden);
+						toggleBtn.innerText = hidden ? '🙈' : '👁';
 					});
 
 					continue;
 				}
 
-				const raw = String(rawVal);
+				const raw = Array.isArray(rawVal) ? rawVal.join(', ') : String(rawVal);
 				const lowerKey = key.toLowerCase();
 
 				/** @param {string} text @param {string} href */
