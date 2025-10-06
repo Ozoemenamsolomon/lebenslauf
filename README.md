@@ -56,6 +56,7 @@ converts a JSON file into a printable CV using Tailwind CSS. The project current
 		},
 		{
 			"title": "Section 2",
+			"readmore": "https://www.example.com",
 			"content": {
 				"01/2020 - 01/2022": {
 					"title": "studies at university",
