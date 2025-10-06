@@ -4,7 +4,9 @@
 	"description": "converts json data of your CV to html",
 	"main": "main.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "http-server -p 8080",
+		"dev": "live-server --port=3000 --open=./index.html"
 	},
 	"repository": {
 		"type": "git",
@@ -21,5 +23,9 @@
 		"dotenv": "^16.0.3",
 		"html-pdf-node": "^1.0.8"
 	},
-	"type": "module"
+	"type": "module",
+	"devDependencies": {
+		"http-server": "^14.1.1",
+		"live-server": "^1.2.2"
+	}
 }

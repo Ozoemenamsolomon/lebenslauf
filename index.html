@@ -7,7 +7,7 @@
 		<title>Lebenslauf</title>
 		<link
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css" />
+			href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" />
 		<style>
 			@media print {
 				.no-print,
@@ -46,22 +46,51 @@
 			</h1>
 
 			<!-- Control panel: hidden when printing -->
-			<div id="controls" class="no-print mb-4 flex justify-end items-center">
-				<span class="mr-2 text-sm">Language:</span>
-				<button id="lang-de" class="px-3 py-1 mr-2 border rounded bg-gray-200">
+			<div
+				id="controls"
+				class="no-print mb-4 flex justify-end items-center gap-2">
+				<span class="text-sm">Language:</span>
+				<button id="lang-de" class="px-3 py-1 border rounded bg-gray-200">
 					Deutsch
 				</button>
 				<button id="lang-en" class="px-3 py-1 border rounded bg-white">
 					English
 				</button>
+				<button
+					id="print-btn"
+					class="px-3 py-1 border rounded bg-white"
+					onclick="window.print()">
+					Print
+				</button>
+				<!-- Reorder controls: toggle and panel -->
+				<button
+					id="reorder-toggle"
+					class="px-3 py-1 border rounded bg-white"
+					title="Reorder sections">
+					Reorder
+				</button>
+				<div
+					id="reorder-panel"
+					class="hidden ml-4 p-3 border rounded bg-gray-50 text-sm shadow">
+					<div class="mb-2">Drag to reorder sections:</div>
+					<ul
+						id="reorder-list"
+						class="max-h-48 overflow-auto border rounded p-2 bg-white"></ul>
+					<div class="mt-2 flex gap-2 justify-end">
+						<button
+							id="save-order"
+							class="px-3 py-1 border rounded bg-green-100">
+							Save
+						</button>
+						<button
+							id="cancel-order"
+							class="px-3 py-1 border rounded bg-red-100">
+							Cancel
+						</button>
+					</div>
+				</div>
 			</div>
 			<div id="sections"></div>
-			<!-- <button
-				class="no-print bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded-full ml-auto"
-				onclick="window.print()"
-			>
-				Print this page
-			</button> -->
 		</div>
 
 		<script type="module" src="./main.js"></script>
