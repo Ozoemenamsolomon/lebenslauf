@@ -232,7 +232,7 @@ function renderData(data, lang) {
 				toggleBtn.addEventListener('click', (ev) => {
 					ev.stopPropagation();
 					const hidden = sectionContentRow.classList.toggle('opacity-25');
-					sectionContentRow.classList.toggle('no-print', hidden);
+					sectionContentRow.classList.toggle('no-print', !hidden);
 				});
 
 				continue;
