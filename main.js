@@ -5,19 +5,19 @@ const sectionsContainer = document.querySelector('#sections');
 const profilePicturePath = './profile-picture.jpg';
 const signaturePath = './signature.png';
 
-const controls = {
-	/** @type {HTMLButtonElement | null} */
-	langDeBtn: document.querySelector('#lang-de'),
-	/** @type {HTMLButtonElement | null} */
-	langEnBtn: document.querySelector('#lang-en'),
-};
-
 /** @type {'de'|'en'} */
 let currentLang = 'de'; // default to German
 
 const langPathDict = {
 	en: 'eng/lebenslauf.json',
 	de: 'lebenslauf.json',
+};
+
+const controls = {
+	/** @type {HTMLButtonElement | null} */
+	langDeBtn: document.querySelector('#lang-de'),
+	/** @type {HTMLButtonElement | null} */
+	langEnBtn: document.querySelector('#lang-en'),
 };
 
 /** @param {'de'|'en'} lang */
