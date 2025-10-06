@@ -93,7 +93,7 @@ function renderData(data, lang) {
 	/**
 	 * @typedef {Object} Section
 	 * @property {string} title
-	 * @property {Record<string, string | string[]>} content
+	 * @property {Record<string, string | {title?:string,items?:any[],visible?:boolean}>} content
 	 * @property {string} [readmore]
 	 */
 
@@ -141,6 +141,8 @@ function renderData(data, lang) {
 		);
 
 		for (const key in section.content) {
+			const rawVal = section.content[key];
+			// create table row and cells
 			const sectionContentRow = myCreateElement(
 				'tr',
 				[],
@@ -149,75 +151,116 @@ function renderData(data, lang) {
 				undefined
 			);
 
-			myCreateElement(
+			const sectionContentKey = myCreateElement(
 				'td',
 				['align-top', 'pr-4'],
 				key + ':',
 				sectionContentRow,
 				undefined
 			);
+			sectionContentKey.style.display = 'ruby-text';
 
 			const sectionContentValue = myCreateElement(
 				'td',
-				['align-top'],
+				['align-top', 'relative'],
 				undefined,
 				sectionContentRow,
 				undefined
 			);
+			// detect new entry shape: { title, items, visible }
+			if (
+				rawVal &&
+				typeof rawVal === 'object' &&
+				!Array.isArray(rawVal) &&
+				(Array.isArray(rawVal.items) || typeof rawVal.title === 'string')
+			) {
+				const entry = rawVal;
+				const entryTitle = entry.title || key;
+				const entryItems = Array.isArray(entry.items) ? entry.items : [];
+				const entryVisible = entry.visible !== false;
 
-			if (Array.isArray(section.content[key])) {
-				section.content[key].forEach((item, sectionContentValueIndex) => {
-					const sectionContentItem = myCreateElement(
-						'p',
-						[],
-						item,
-						sectionContentValue,
+				if (!entryVisible)
+					sectionContentRow.classList.add('opacity-25', 'no-print');
+
+				// entry container (relative so the toggle can be absolute)
+				const entryContainer = myCreateElement(
+					'div',
+					['entry-container', 'relative'],
+					undefined,
+					sectionContentValue,
+					undefined
+				);
+
+				myCreateElement(
+					'p',
+					['font-bold'],
+					entryTitle,
+					entryContainer,
+					undefined
+				);
+				if (entryItems.length) {
+					const ul = myCreateElement(
+						'ul',
+						['list-disc', 'pl-6'],
+						undefined,
+						entryContainer,
 						undefined
 					);
-
-					if ([1, 2, 3].includes(sectionIndex)) {
-						sectionContentItem.classList.add(
-							sectionContentValueIndex == 0 ? 'font-bold' : 'pl-2'
-						);
-					}
-				});
-			} else {
-				// Create a link only when the content looks like a URL, phone or email
-				const raw = String(section.content[key]);
-				const lowerKey = key.toLowerCase();
-
-				// helper to create and append link
-				/**
-				 * @param {string} text
-				 * @param {string} href
-				 */
-				function appendLink(text, href) {
-					const linkTag = myCreateElement(
-						'a',
-						['text-blue-500'],
-						text,
-						sectionContentValue,
-						{ rel: 'noopener noreferrer', target: '_blank', href }
+					entryItems.forEach((it) =>
+						myCreateElement('li', [], it, ul, undefined)
 					);
-					return linkTag;
 				}
 
-				if (lowerKey === 'telefon' || lowerKey === 'phone') {
-					appendLink(raw, 'tel:' + raw.replace(/[^+0-9]/g, ''));
-				} else if (lowerKey === 'portfolio' || lowerKey === 'linkedin') {
-					// ensure protocol
-					const href = raw.startsWith('http')
-						? raw
-						: 'https://' + raw.replace(/^https?:\/\//, '');
-					appendLink(raw, href);
-				} else if (lowerKey === 'email') {
-					appendLink(raw, 'mailto:' + raw);
-				} else if (/^https?:\/\//i.test(raw) || /^(www\.)/i.test(raw)) {
-					const href = raw.startsWith('http') ? raw : 'https://' + raw;
-					appendLink(raw, href);
-				} else {
-					sectionContentValue.innerText = raw;
-				}
+				// toggle button (absolute top-right)
+				const toggleBtn = myCreateElement(
+					'button',
+					['entry-toggle', 'absolute', 'top-0', 'right-0', 'p-1', 'no-print'],
+					entryVisible ? '👁' : '👁‍🗨',
+					entryContainer,
+					undefined
+				);
+				toggleBtn.style.background = 'transparent';
+				toggleBtn.style.border = 'none';
+				toggleBtn.style.cursor = 'pointer';
+
+				toggleBtn.addEventListener('click', (ev) => {
+					ev.stopPropagation();
+					const hidden = sectionContentRow.classList.toggle('opacity-25');
+					sectionContentRow.classList.toggle('no-print', hidden);
+				});
+
+				continue;
+			}
+
+			// legacy handling: single string
+			const raw = String(rawVal);
+			const lowerKey = key.toLowerCase();
+
+			/** @param {string} text @param {string} href */
+			function appendLink(text, href) {
+				return myCreateElement(
+					'a',
+					['text-blue-500'],
+					text,
+					sectionContentValue,
+					{ rel: 'noopener noreferrer', target: '_blank', href }
+				);
+			}
+
+			if (lowerKey === 'telefon' || lowerKey === 'phone') {
+				appendLink(raw, 'tel:' + raw.replace(/[^+0-9]/g, ''));
+			} else if (lowerKey === 'portfolio' || lowerKey === 'linkedin') {
+				const href = raw.startsWith('http')
+					? raw
+					: 'https://' + raw.replace(/^https?:\/\//, '');
+				appendLink(raw, href);
+			} else if (lowerKey === 'email') {
+				appendLink(raw, 'mailto:' + raw);
+			} else if (/^https?:\/\//i.test(raw) || /^(www\.)/i.test(raw)) {
+				const href = raw.startsWith('http') ? raw : 'https://' + raw;
+				appendLink(raw, href);
+			} else {
+				sectionContentValue.innerText = raw;
 			}
 		}
 		if (section.readmore) {
