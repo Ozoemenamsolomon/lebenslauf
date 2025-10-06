@@ -99,7 +99,7 @@ function renderData(data, lang) {
 	/**
 	 * @typedef {Object} Section
 	 * @property {string} title
-	 * @property {Record<string, string | {title?:string,items?:any[],visible?:boolean}>} content
+	 * @property {Record<string, string | {title?:string,items?:string[],visible?:boolean}>} content
 	 * @property {string} [readmore]
 	 */
 
