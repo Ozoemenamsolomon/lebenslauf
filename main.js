@@ -39,17 +39,8 @@ function setActiveLangButton() {
 }
 
 /** @param {'de'|'en'} lang */
-function setPageTitlesByLang(lang) {
-	const deTitles = document.querySelectorAll('.de');
-	const enTitles = document.querySelectorAll('.eng');
-	deTitles.forEach((el) => el.classList.toggle('hidden', lang !== 'de'));
-	enTitles.forEach((el) => el.classList.toggle('hidden', lang !== 'en'));
-}
-
-/** @param {'de'|'en'} lang */
 function fetchAndRender(lang) {
 	clearSections();
-	setPageTitlesByLang(lang);
 	setActiveLangButton();
 	const path = jsonPathForLang(lang);
 	fetch(path)
@@ -107,10 +98,23 @@ function renderData(data, lang) {
 	 * @typedef {Object} LebenslaufData
 	 * @property {string} [location]
 	 * @property {Section[]} sections
+	 * @property {string} [title]
 	 */
 
 	/** @type {LebenslaufData} */
 	const typedData = data;
+
+	try {
+		if (typedData && typeof typedData.title === 'string') {
+			document.title = typedData.title;
+			const titleH1 = document.querySelector('.title');
+			if (titleH1 && titleH1 instanceof HTMLElement)
+				titleH1.innerText = typedData.title;
+		}
+	} catch (e) {
+		// defensive: ignore errors when running in non-browser environments
+		console.warn('Could not set document title from JSON', e);
+	}
 
 	typedData.sections.forEach((section, sectionIndex) => {
 		/** @type {HTMLElement} */
