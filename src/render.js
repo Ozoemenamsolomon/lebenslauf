@@ -218,7 +218,7 @@ export function renderData(data, lang, opts) {
 						'-mt-1',
 						'bg-white',
 						'w-32',
-						'h-48',
+						'h-40',
 					],
 					undefined,
 					sectionContentContainer,
