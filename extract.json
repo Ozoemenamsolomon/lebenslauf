@@ -1,0 +1,18 @@
+{
+	"id": "...",
+	"title": "...",
+	"representative": "...",
+	"company_website": "...",
+	"full_company_address": {
+		"street": "...",
+		"city": "...",
+		"state": "...",
+		"zip_code": "...",
+		"country": "..."
+	},
+	"location": "...",
+	"technologies": ["...", "...", "..."],
+	"soft_skills": ["...", "...", "..."],
+	"language": "en",
+	"raw_description": "..."
+}
