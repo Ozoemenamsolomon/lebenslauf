@@ -21,7 +21,8 @@
 	"homepage": "https://github.com/Ozoemenamsolomon/lebenslauf#readme",
 	"dependencies": {
 		"dotenv": "^16.0.3",
-		"html-pdf-node": "^1.0.8"
+		"html-pdf-node": "^1.0.8",
+		"nunjucks": "^3.2.4"
 	},
 	"type": "module",
 	"devDependencies": {

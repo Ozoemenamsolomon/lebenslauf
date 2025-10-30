@@ -1,0 +1,45 @@
+{% for section in sections %}
+  <section class="section mb-2 relative" aria-label="{{ section.title | lower }}">
+    <h2 class="section-title font-bold text-base capitalize border-b-2">
+      {{ section.title }}
+    </h2>
+    <div class="section-content flex justify-between">
+      <table class="section-{{ section.title | lower | replace(' ', '-') }} text-xs">
+        {% for key, value in section.content %}
+        {% set isEducation = section.id == "education" %}
+        {% set isExperience = section.id == "experience" %}
+        {% if isEducation or isExperience %}
+          <tr>
+            <td class="align-top pr-4" style="display: ruby-text">
+              {{ key }}:
+            </td>
+            <td class="align-top relative">
+              <div class="flex flex-col gap-1 entry-container relative">
+                {% if value.title %}
+                  <p class="font-bold">{{ value.title }}</p>
+                {% endif %}
+                {% if value.items %}
+                  <ul class="flex flex-col gap-1 list-disc pl-6">
+                    {% for item in value.items %}
+                      <li>{{ item }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td class="align-top pr-4" style="display: ruby-text">
+              {{ key }}:
+            </td>
+            <td class="align-top">
+              {{ value }}
+            </td>
+          </tr>
+        {% endif %}
+        {% endfor %}
+      </table>
+    </div>
+  </section>
+{% endfor %}
