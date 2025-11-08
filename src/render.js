@@ -65,7 +65,10 @@ export function renderData(data, lang, opts) {
 
 			const sectionContentTable = myCreateElement(
 				'table',
-				[`section-${section.title.toLowerCase().replace(/\s/g, '-')}`],
+				[
+					`section-${section.title.toLowerCase().replace(/\s/g, '-')}`,
+					'text-xs',
+				],
 				undefined,
 				sectionContentContainer,
 				undefined
